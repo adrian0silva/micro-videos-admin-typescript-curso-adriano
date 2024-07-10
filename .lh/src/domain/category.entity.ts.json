@@ -1,0 +1,86 @@
+{
+    "sourceFile": "src/domain/category.entity.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 17,
+            "patches": [
+                {
+                    "date": 1720109291298,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1720109297430,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,5 @@\n export class Category  {\n-\n     category_id: string;\n     name: string;\n     description: string | null;\n     is_active: boolean;\n"
+                },
+                {
+                    "date": 1720109344474,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,19 @@\n+export type CategoryConstructorProps = {\n+    category_id: string;\n+    name: string;\n+    description: string | null;\n+    is_active: boolean;\n+    created_at: Date;\n+}\n+\n export class Category  {\n     category_id: string;\n     name: string;\n     description: string | null;\n     is_active: boolean;\n     created_at: Date;\n+\n+    constructor(props) {\n+\n+    }\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1720109363838,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n     description: string | null;\n     is_active: boolean;\n     created_at: Date;\n \n-    constructor(props) {\n+    constructor(props: CategoryConstructorProps) {\n \n     }\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1720109411695,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,7 +13,11 @@\n     is_active: boolean;\n     created_at: Date;\n \n     constructor(props: CategoryConstructorProps) {\n-\n+        this.category_id = props.category_id;\n+        this.created_at = props.created_at;\n+        this.description = props.description;\n+        this.is_active = props.is_active;\n+        this.name = props.name;\n     }\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1720109498960,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n export type CategoryConstructorProps = {\n     category_id: string;\n     name: string;\n-    description: string | null;\n+    description?: string | null;\n     is_active: boolean;\n     created_at: Date;\n }\n \n"
+                },
+                {
+                    "date": 1720109522647,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n export type CategoryConstructorProps = {\n     category_id: string;\n     name: string;\n     description?: string | null;\n-    is_active: boolean;\n+    is_active?: boolean;\n     created_at: Date;\n }\n \n export class Category  {\n@@ -15,9 +15,9 @@\n \n     constructor(props: CategoryConstructorProps) {\n         this.category_id = props.category_id;\n         this.created_at = props.created_at;\n-        this.description = props.description;\n-        this.is_active = props.is_active;\n+        this.description = props.description ?? null;\n+        this.is_active = props.is_active ?? true;\n         this.name = props.name;\n     }\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1720109537358,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n     category_id: string;\n     name: string;\n     description?: string | null;\n     is_active?: boolean;\n-    created_at: Date;\n+    created_at?: Date;\n }\n \n export class Category  {\n     category_id: string;\n"
+                },
+                {
+                    "date": 1720109547711,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     created_at: Date;\n \n     constructor(props: CategoryConstructorProps) {\n         this.category_id = props.category_id;\n-        this.created_at = props.created_at;\n+        this.created_at = props.created_at ?? new Date();\n         this.description = props.description ?? null;\n         this.is_active = props.is_active ?? true;\n         this.name = props.name;\n     }\n"
+                },
+                {
+                    "date": 1720109629068,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,5 +19,9 @@\n         this.description = props.description ?? null;\n         this.is_active = props.is_active ?? true;\n         this.name = props.name;\n     }\n+\n+    static create(props: CategoryConstructorProps): Category {\n+        return new Category(props);\n+    }\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1720109646464,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,5 +23,6 @@\n \n     static create(props: CategoryConstructorProps): Category {\n         return new Category(props);\n     }\n-}\n\\ No newline at end of file\n+}\n+// banco de dados - tabela categorias\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1720109720621,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,14 @@\n     is_active?: boolean;\n     created_at?: Date;\n }\n \n+export type CategooryCreateCommand = {\n+    name: string;\n+    description?: string | null;\n+    is_active?: boolean;\n+}\n+\n export class Category  {\n     category_id: string;\n     name: string;\n     description: string | null;\n"
+                },
+                {
+                    "date": 1720109736397,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n         this.is_active = props.is_active ?? true;\n         this.name = props.name;\n     }\n \n-    static create(props: CategoryConstructorProps): Category {\n+    static create(props: CategooryCreateCommand): Category {\n         return new Category(props);\n     }\n }\n // banco de dados - tabela categorias\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1720109758787,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n export type CategoryConstructorProps = {\n-    category_id: string;\n+    category_id?: string;\n     name: string;\n     description?: string | null;\n     is_active?: boolean;\n     created_at?: Date;\n"
+                },
+                {
+                    "date": 1720109786810,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,5 +30,9 @@\n     static create(props: CategooryCreateCommand): Category {\n         return new Category(props);\n     }\n }\n-// banco de dados - tabela categorias\n\\ No newline at end of file\n+// banco de dados - tabela categorias\n+\n+Category.create({})\n+\n+new Category();\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1720109952127,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,8 +31,4 @@\n         return new Category(props);\n     }\n }\n // banco de dados - tabela categorias\n-\n-Category.create({})\n-\n-new Category();\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1720109974945,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n     is_active?: boolean;\n     created_at?: Date;\n }\n \n-export type CategooryCreateCommand = {\n+export type CategoryCreateCommand = {\n     name: string;\n     description?: string | null;\n     is_active?: boolean;\n }\n@@ -26,9 +26,11 @@\n         this.is_active = props.is_active ?? true;\n         this.name = props.name;\n     }\n \n-    static create(props: CategooryCreateCommand): Category {\n+    static create(props: CategoryCreateCommand): Category {\n         return new Category(props);\n     }\n+\n+    update(props: Partial<CategoryCreateCommand)\n }\n // banco de dados - tabela categorias\n"
+                },
+                {
+                    "date": 1720110000972,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,7 +30,9 @@\n     static create(props: CategoryCreateCommand): Category {\n         return new Category(props);\n     }\n \n-    update(props: Partial<CategoryCreateCommand)\n+    update(props: Partial<CategoryCreateCommand>): Category {\n+        return new Category({...this, ...props})\n+    }\n }\n // banco de dados - tabela categorias\n"
+                }
+            ],
+            "date": 1720109291298,
+            "name": "Commit-0",
+            "content": "export class Category  {\n\n    category_id: string;\n    name: string;\n    description: string | null;\n    is_active: boolean;\n    created_at: Date;\n}"
+        }
+    ]
+}
